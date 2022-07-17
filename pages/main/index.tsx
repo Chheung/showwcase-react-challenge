@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "react-modal";
 import { Controller, useForm } from "react-hook-form";
 import { customModalStyle } from "@/styles/js/modal";
+import { Education } from "@/commons";
 import { EducationFormRegisterOptions } from "@/validators/EducationForm";
 import InputWithValidator from "@/components/FormValidators/InputWithValidator";
 import TextAreaWithValidator from "@/components/FormValidators/TextAreaWithValidator";
@@ -9,6 +10,24 @@ import TextAreaWithValidator from "@/components/FormValidators/TextAreaWithValid
 Modal.setAppElement("#__next");
 
 const MainPage = () => {
+  // Educations
+  const [educations, setEducations] = useState([
+    {
+      name: "Showwcase university 1",
+      startYear: "August 2018",
+      endYear: "September 2022",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed praesentium officiis eos eveniet aliquam pariatur, delectus, omnis veniam optio veritatis temporibus nisi reiciendis tempore vero quisquam explicabo. Debitis corrupti veniam, expedita quibusdam fugit explicabo doloremque. Doloribus molestias officiis tempora quidem enim, labore sequi. Eveniet facere cumque impedit veritatis molestias non itaque fugiat, perferendis adipisci quibusdam.",
+    },
+    {
+      name: "Showwcase university 2",
+      startYear: "August 2018",
+      endYear: "September 2022",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed praesentium officiis eos eveniet aliquam pariatur, delectus, omnis veniam optio veritatis temporibus nisi reiciendis tempore vero quisquam explicabo. Debitis corrupti veniam, expedita quibusdam fugit explicabo doloremque. Doloribus molestias officiis tempora quidem enim, labore sequi. Eveniet facere cumque impedit veritatis molestias non itaque fugiat, perferendis adipisci quibusdam.",
+    },
+  ] as Education[]);
+
   // Form
   const {
     control,
@@ -16,15 +35,18 @@ const MainPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      start: "",
-      end: "",
+      name: "",
+      startYear: "",
+      endYear: "",
       description: "",
     },
   });
   const registerOptions: any = EducationFormRegisterOptions();
-  const onSubmit = (data: any) => {
-    console.log(errors);
+  const onEducationFormSubmit = (data: Education) => {
     if (Object.keys(errors).length) return;
+
+    setEducations([...educations, data]);
+    closeModal();
   };
 
   // Modal
@@ -38,7 +60,7 @@ const MainPage = () => {
 
   return (
     <div className="h-full">
-      <div id="header" className="pt-40 text-center">
+      <div id="header" className="pt-20 text-center">
         <p className="text-3xl">Welcome to Chheungs education page</p>
         <button
           className="mt-5 px-5 py-2 bg-green-400 text-white bg-rounded rounded-lg"
@@ -48,15 +70,32 @@ const MainPage = () => {
         </button>
       </div>
 
-      <div id="content" className="mt-20 grid grid-cols-12">
+      <div id="content" className="mt-10 grid grid-cols-12">
         <div className="col-span-3 px-4">
-          <div className="bg-gray-500">ff</div>
+          <div className="bg-gray-500"></div>
         </div>
         <div className="col-span-6 px-4">
-          <div className="bg-gray-500">ff</div>
+          <div className=" text-white">
+            {educations.map((e) => {
+              return (
+                <div
+                  key={e.name}
+                  className="bg-gray-500 px-5 border-rounded rounded-xl my-10"
+                >
+                  <div className="pt-5 text-2xl">{e.name}</div>
+                  <div className="text-xl">
+                    {e.startYear} - {e.endYear}
+                  </div>
+                  <div className="py-5">
+                    <span className="text-md break-words">{e.description}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="col-span-3 px-4">
-          <div className="bg-gray-500">ff</div>
+          <div className="bg-gray-500"></div>
         </div>
       </div>
 
@@ -71,17 +110,29 @@ const MainPage = () => {
         <form
           id="educationForm"
           className="mt-10"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onEducationFormSubmit)}
         >
           <div className="mt-2">
             <label>Start year</label>
             <Controller
-              name="start"
+              name="name"
               control={control}
               defaultValue=""
-              rules={registerOptions.start}
+              rules={registerOptions.name}
               render={({ field }) => (
-                <InputWithValidator {...field} error={errors.start} />
+                <InputWithValidator {...field} error={errors.name} />
+              )}
+            />
+          </div>
+          <div className="mt-2">
+            <label>Start year</label>
+            <Controller
+              name="startYear"
+              control={control}
+              defaultValue=""
+              rules={registerOptions.startYear}
+              render={({ field }) => (
+                <InputWithValidator {...field} error={errors.startYear} />
               )}
             />
           </div>
@@ -92,13 +143,11 @@ const MainPage = () => {
             </div>
 
             <Controller
-              name="end"
+              name="endYear"
               control={control}
               defaultValue=""
-              rules={registerOptions.end}
-              render={({ field }) => (
-                <InputWithValidator {...field} error={errors.end} />
-              )}
+              rules={registerOptions.endYear}
+              render={({ field }) => <InputWithValidator {...field} />}
             />
           </div>
           <div className="mt-2">
@@ -109,7 +158,9 @@ const MainPage = () => {
               control={control}
               defaultValue=""
               rules={registerOptions.description}
-              render={({ field }) => <TextAreaWithValidator {...field} />}
+              render={({ field }) => (
+                <TextAreaWithValidator {...field} error={errors.description} />
+              )}
             />
           </div>
           <div className="my-2 flex justify-end">

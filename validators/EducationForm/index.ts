@@ -1,8 +1,10 @@
 import { getValidatorErrorMessages } from "@/commons";
 
-export const EducationFormRegisterOptions = () => {
+export const EducationFormRegisterOptions = (): {
+  [key: string]: any;
+} => {
   return {
     ...getValidatorErrorMessages("name", "Name", ["required"]),
-    ...getValidatorErrorMessages("start", "Start Year", ["required"]),
+    ...getValidatorErrorMessages("startYear", "Start Year", ["required"]),
   };
 };
