@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import { Controller, useForm } from "react-hook-form";
-import { customModalStyle } from "@/styles/js/modal";
+import { customModalStyle } from "@/styles/ts/modal.style";
 import { Education } from "@/commons";
 import { EducationFormRegisterOptions } from "@/validators/EducationForm";
 import InputWithValidator from "@/components/FormValidators/InputWithValidator";
