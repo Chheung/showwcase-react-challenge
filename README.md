@@ -21,6 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## What is missing and could be improved:
 
+- Missing validation on EducationModal (name) (Not yet integrate with ReactHookForm with React Search Autocomplete)
 - Better loader on auto suggest input
 - Proper state management
 - Strict validations especially on Dates inputs
