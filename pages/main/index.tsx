@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import Modal from "react-modal";
-import { NextResponse, NextRequest } from "next/server";
 import { Controller, useForm } from "react-hook-form";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { customModalStyle } from "@/styles/ts/modal.style";
@@ -187,7 +186,9 @@ const MainPage = () => {
               formatResult={formatResult}
               styling={{
                 fontSize: "16px",
-                border: "2px solid rgb(229, 231, 235)",
+                border: errors.name
+                  ? "2px solid rgb(239 68 68)"
+                  : "2px solid rgb(229, 231, 235)",
                 borderRadius: "0.5em",
                 backgroundColor: "white",
                 boxShadow: "none",
@@ -200,6 +201,13 @@ const MainPage = () => {
                 zIndex: 2,
               }}
             />
+            {errors.name?.message ? (
+              <span className="text-sm mt-1 ml-2 text-red-500">
+                {errors.name.message}
+              </span>
+            ) : (
+              <div className="mt-1" style={{ height: "20px" }}></div>
+            )}
           </div>
           <div className="mt-2">
             <label>Start year</label>
