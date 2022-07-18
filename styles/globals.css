@@ -25,3 +25,7 @@ a {
 #__next {
   height: 100%;
 }
+
+.NKrBY > input {
+  padding: 0 0 0 8px !important;
+}

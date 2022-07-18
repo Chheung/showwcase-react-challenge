@@ -16,7 +16,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - React Hook Form
 - React Modal
+- React Search Autocomplete
 - Tailwind CSS
+
+## What is missing and could be improved:
+
+- Better loader on auto suggest input
+- Proper state management
+- Strict validations especially on Dates inputs
+- Left panel Bookmark (I dont quiet get the specification there)
+- A better UI
 
 ## Deploy on Vercel
 
